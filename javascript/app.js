@@ -9,6 +9,8 @@ const resetButton = document.querySelector('#reset')
 
 /*------- FUNCTIONS */
 const getCalculatedTip = (tipValue) => {
+  if (tipValue < 0) return -1
+
   let tip = tipValue === '' ? 0 : Number(tipValue)
   let bill = Number(billAmount.value)
   let people = Number(numberPeople.value)
@@ -29,17 +31,23 @@ const displayTip = ({ tipAmount, totalAmount }) => {
 const checkFields = () => {
   if (
     billAmount.value !== '' &&
+    Number(billAmount.value) >= 0 &&
     numberPeople.value !== '' &&
-    numberPeople.value !== '0'
+    numberPeople.value !== '0' &&
+    Number(numberPeople.value) >= 0
   )
     return true
 
-  if (billAmount.value === '') {
+  if (billAmount.value === '' || Number(billAmount.value) < 0) {
     addStyledFields(billAmount)
     activeAlertMessage(`${billAmount.id}-alert`)
   }
 
-  if (numberPeople.value === '' || numberPeople.value === '0') {
+  if (
+    numberPeople.value === '' ||
+    numberPeople.value === '0' ||
+    Number(numberPeople.value) < 0
+  ) {
     addStyledFields(numberPeople)
     activeAlertMessage(`${numberPeople.id}-alert`)
   }
@@ -195,6 +203,7 @@ customTip.addEventListener('focusout', () => {
   }
 })
 
-customTip.addEventListener('input', () =>
-  displayTip(getCalculatedTip(customTip.value))
-)
+customTip.addEventListener('input', () => {
+  const outputTip = getCalculatedTip(customTip.value)
+  displayTip(outputTip)
+})
