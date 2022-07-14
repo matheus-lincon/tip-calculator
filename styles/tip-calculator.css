@@ -1,0 +1,249 @@
+.container {
+  display: grid;
+  place-items: center;
+  min-height: 50vh;
+}
+
+#header {
+  padding: 50px;
+  text-align: center;
+}
+
+/* TIP CALCULATOR */
+
+.tip-calculator {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+
+  background-color: var(--white);
+  width: 100%;
+  border-radius: 2rem 2rem 0 0;
+
+  padding: 3rem;
+}
+
+.tip-calculator label {
+  display: block;
+
+  margin-bottom: 10px;
+
+  font-size: var(--font-base);
+  font-weight: 700;
+  color: var(--dark-grayish-cyan);
+}
+
+.tip-calculator input[type='number'] {
+  width: 100%;
+  background-color: var(--very-light-grayish-cyan);
+  border: none;
+  padding: var(--padding);
+
+  text-align: right;
+
+  font-size: var(--font-large);
+  color: var(--very-dark-cyan);
+  font-weight: 700;
+
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.tip-calculator input[type='number']:focus {
+  outline-color: var(--strong-cyan);
+}
+
+.tip-calculator 
+
+/* bill-container */
+.bill-container {
+  position: relative;
+}
+
+.bill-container svg,
+.number-people-container svg {
+  position: absolute;
+
+  bottom: 23px;
+  left: 10px;
+}
+
+/* tip container */
+.tip-container .tips {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.tip-container .tips .tip {
+  width: 100%;
+  font-size: var(--font-large);
+  padding: var(--padding);
+  background-color: var(--very-dark-cyan);
+  color: var(--white);
+  font-weight: 700;
+  border: none;
+  border-radius: 0.25rem;
+
+  transition: background-color 300ms ease-in-out;
+
+  cursor: pointer;
+}
+
+body.hasHover .tip-container .tips .tip:hover {
+  background-color: var(--light-grayish-cyan);
+  color: var(--very-dark-cyan);
+}
+
+.tip-container .tips .tip.selected {
+  background-color: var(--strong-cyan);
+  color: var(--very-dark-cyan);
+}
+
+.tip-container .tips #custom-tip {
+  background-color: var(--very-light-grayish-cyan);
+  text-align: center;
+}
+
+.tip-container .tips #custom-tip::placeholder,
+.tip-container .tips #custom-tip::-webkit-input-placeholder {
+  color: var(--very-dark-cyan);
+}
+
+.tip-container .tips #custom-tip.selected {
+  background-color: var(--very-light-grayish-cyan);
+  color: var(--very-dark-cyan);
+  text-align: right;
+}
+
+/* number-people-container */
+.number-people-container {
+  position: relative;
+}
+
+.number-people-container .label,
+.bill-container .label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.number-people-container .label .invalid,
+.bill-container .label .invalid {
+  display: none;
+  color: var(--red);
+  margin-bottom: 10px;
+}
+
+.number-people-container .label .invalid.active,
+.bill-container .label .invalid.active {
+  display: block;
+}
+
+#bill-amount,
+#number-people {
+  border: none;
+}
+
+#bill-amount.alert,
+#number-people.alert {
+  border: 2px solid var(--red);
+}
+
+/* output area */
+.output-area {
+  background-color: var(--very-dark-cyan);
+  padding: 3rem 2rem 1rem 2rem;
+  border-radius: 1rem;
+
+  display: grid;
+  grid-template-rows: 100px 100px 1fr;
+}
+
+.output-area .tip-amount-container,
+.output-area .total-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.output-area .output-label p:first-child {
+  font-size: 1rem;
+  color: var(--white);
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.output-area .output-label p:last-child {
+  font-weight: 700;
+  color: var(--grayish-cyan);
+  font-size: var(--font-small);
+}
+
+.output-area .output-amount {
+  font-weight: 700;
+  font-size: var(--font-extra-large);
+  color: var(--strong-cyan);
+}
+
+.output-area .button-group {
+  align-self: end;
+}
+
+.output-area .button-group .button {
+  width: 100%;
+  padding: var(--padding);
+  background-color: var(--strong-cyan);
+  border-radius: 0.25rem;
+  border: none;
+  color: var(--very-dark-cyan);
+  font-size: var(--font-medium);
+
+  transition: background-color 300ms ease-in-out;
+
+  cursor: pointer;
+}
+
+body.hasHover .output-area .button-group .button:hover {
+  background-color: var(--light-grayish-cyan);
+  color: var(--very-dark-cyan);
+}
+
+/* RESPONSIVE */
+
+@media only screen and (min-width: 720px) {
+  .tip-calculator {
+    display: grid;
+    grid-template-areas:
+      'bill output'
+      'select output'
+      'people output';
+    grid-template-columns: repeat(2, 1fr);
+
+    max-width: 1070px;
+
+    border-radius: 2rem;
+  }
+
+  .tip-container .tips {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .bill-container {
+    grid-area: bill;
+  }
+
+  .tips {
+    grid-area: select;
+  }
+
+  .number-people-container {
+    grid-area: people;
+  }
+
+  .output-area {
+    grid-area: output;
+    grid-row: 1 / 4;
+  }
+}
